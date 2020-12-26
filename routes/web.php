@@ -17,19 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/login', function () {
-    return view('login1');
-})->name("login");
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/request', function () {
-    return view('request');
-})->name("request");
-
-Route::get('/paid', function () {
-    return view('paid');
-})->name("paid");
-
-Route::get('/consult', function () {
-    return view('consult');
-})->name("consult");
-
+require __DIR__.'/auth.php';
