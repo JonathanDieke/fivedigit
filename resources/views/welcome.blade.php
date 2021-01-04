@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.guest')
 
 @section('content')
 
@@ -32,7 +32,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center flex-row-reverse">
                                 <div class="btn-group flex-fill">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">Demander un document</button>
+                                    <a href="{{ route('request') }}" class="btn btn-sm btn-outline-primary">Demander un document</a>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center flex-row-reverse">
                                 <div class="btn-group flex-fill">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">Actualiser un document</button>
+                                    <a href="{{ route('refresh') }}" class="btn btn-sm btn-outline-primary">Actualiser un document</a>
                                 </div>
                             </div>
                         </div>
@@ -70,10 +70,10 @@
                                 / Payer pour une actualisation : Vous avez un compte mobile money ou une carte de crédit ? Alors payer en ligne pour une actualisation de votre document. --}}
                                 {{-- / Afficher son document : --}}
                             </p>
-                            <br>
+                            <br> <br>
                             <div class="d-flex justify-content-between align-items-center flex-row-reverse">
                                 <div class="btn-group flex-fill">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">Consulter un document</button>
+                                    <a href="{{ route('consult') }}" class="btn btn-sm btn-outline-primary">Consulter un document</a>
                                 </div>
                             </div>
                         </div>

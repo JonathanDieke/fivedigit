@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="APP3 Project">
     <meta name="author" content="Jonathan Dieke">
-    <meta name="generator" content="Jekyll v4.1.1">
     <title>Five Digit</title>
 
     <!-- Bootstrap core CSS -->
 {{-- <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet"> --}}
+
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
@@ -143,11 +143,12 @@
           </div>
         </div>
       </div>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="navbar navbar-dark bg-secondary shadow-sm">
         <div class="container d-flex justify-content-between">
           <a href="{{ route('welcome') }}" class="navbar-brand d-flex align-items-center">
             {{-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> --}}
-            <img src="{{ asset('img/logo.jpg') }}" alt="Five Digit" style="height: 20px; width:20px">
+            {{-- <img src="{{ asset('img/logo.jpg') }}" alt="Five Digit" style="height: 20px; width:20px"> --}}
+            <x-application-logo style="height: 40px; width:40px" />
             <strong> {{ config("app.name") }} </strong>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,7 +158,7 @@
       </div>
     </header>
     <div class="container">
-        @yield('content')
+        {{-- @yield('content') --}}
     </div>
 
     <footer class="text-bold @if(Route::is('login') ) {{'fixed-bottom'}} @endif">
@@ -178,17 +179,26 @@
 
     </footer>
 
-{{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
 
-<script
-        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+@if (config("app.env") ==="local")
 
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
 
-{{-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> --}}
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+@endif
+
+@if (config("app.env") ==="production")
+
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+
+@endif
+
 </html>

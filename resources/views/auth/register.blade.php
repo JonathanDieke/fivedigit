@@ -19,11 +19,18 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+            <!-- LastName -->
+            <div>
+                <x-label for="lname" :value="__('Last Name')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('lname')" required autofocus />
+            </div>
+
+            <!-- Identifier instead of email -->
+            <div class="mt-4">
+                <x-label for="identifier" :value="__('Identifier')" />
+
+                <x-input id="identifier" class="block mt-1 w-full" type="text" name="identifier" :value="old('identifier')" required />
             </div>
 
             <!-- Password -->

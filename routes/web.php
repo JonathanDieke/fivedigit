@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +24,20 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/request_document', function () {
+    return view('request');
+})->name('request');
+
+Route::post('/requested_document', function (Request $request) {
+    dd($request->code);
+})->name('requested');
+
+Route::get('/refresh_document', function () {
+    return view('refresh');
+})->name('refresh');
+
+Route::get('/consult_document', function () {
+    return view('consult');
+})->name('consult');
