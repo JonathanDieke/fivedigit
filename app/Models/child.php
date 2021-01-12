@@ -18,4 +18,9 @@ class child extends Model
     {
         return $this->belongsTo(mother::class, 'mother_id', 'id');
     }
+
+    public function document()
+    {
+        return $this->hasOne(document::class, 'child_id', 'id');
+    }
 }

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
+use App\Models\document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -38,6 +41,6 @@ Route::get('/refresh_document', function () {
     return view('refresh');
 })->name('refresh');
 
-Route::get('/consult_document', function () {
-    return view('consult');
-})->name('consult');
+Route::get('/consult_document', [DocumentController::class, 'index'])->name('consult');
+
+Route::post('/consult_document', [DocumentController::class, 'store'])->name('consulted');

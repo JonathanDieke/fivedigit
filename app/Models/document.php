@@ -22,4 +22,9 @@ class document extends Model
                             ->withTimestamps();
     }
 
+    public function child()
+    {
+        return $this->hasOne(child::class, 'document_id' ,'id');
+    }
+
 }

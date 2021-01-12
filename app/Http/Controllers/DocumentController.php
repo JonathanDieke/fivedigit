@@ -14,7 +14,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        return view('consult');
     }
 
     /**
@@ -35,7 +35,25 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'code' => 'string | required | max:100',
+            'name' => 'string | required | max:100',
+            'lname' => 'string | required | max:100',
+        ]);
+
+        $doc = document::where(["code" => $validated['code']])->get();
+
+        if($doc->isEmpty()){
+            return back()->with('error', "Le code saisi n'existe pas");  ;
+        };
+
+        if($doc[0]->child->name == $validated['name'] && $doc[0]->child->lname == $validated["lname"]){
+            $document = $doc[0];
+            return view('cardDocument', compact('document'));
+        }else{
+            return "bad bad !";
+        }
     }
 
     /**

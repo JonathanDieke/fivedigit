@@ -15,7 +15,9 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->foreignId('mayor_id')->constrained('mayors');
+            $table->foreignId('child_id')->constrained('children');
             $table->timestamps();
         });
     }

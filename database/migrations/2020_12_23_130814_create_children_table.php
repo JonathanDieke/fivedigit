@@ -18,6 +18,7 @@ class CreateChildrenTable extends Migration
             $table->foreignId('hospital_id')->constrained('hospitals');
             $table->foreignId('father_id')->constrained('fathers');
             $table->foreignId('mother_id')->constrained('mothers');
+            $table->integer("document_id");
             $table->string("name");
             $table->string("lname");
             $table->dateTime("birthday");
