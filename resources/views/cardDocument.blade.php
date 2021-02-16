@@ -1,9 +1,9 @@
 @extends('layouts.guest')
 
 @section('content')
-  <div class="card ml-auto mr-auto my-5 shadow-lg bg-light rounded" style="width: auto;">
+  <div class="card ml-auto mr-auto my-5 shadow-xs bg-light " style="width:auto;">
     <div class="card-body">
-      <h4 class="card-title"> Extrait n°{{ $document->code }}</h4>
+        <h4 class="card-title"> Extrait n°{{ $document->code }}</h4>
 
         <p class="card-text">
             Mairie d'origine :
@@ -43,11 +43,29 @@
         <p class="card-text float-right">
             Date d'émission :
             <span class="text-bold">
-                {{ $document->created_at }}
+                {{ $document->updated_at }}
             </span>
         </p>
 
-        <a href="#" class="btn btn-primary mt-5">Télécharger</a>
+        @if (! empty($route))
+            @if ($route ==="sendRequest")
+                <form action="{{ route($route, $document) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="document_id" value="{{ $document->id }}">
+                    <button type="submit" class="btn btn-primary mt-5">{{ $buttonTitle }}</button>
+                </form>
+            @elseif($route === 'pay')
+                <form action="{{ route($route) }}" method="post">
+                    @csrf
+                    <input type="hidden" name="code" value="{{ $document->code }}">
+                    <button type="submit" class="btn btn-primary mt-5">{{ $buttonTitle }}</button>
+                </form>
+            @endif
+        @else
+            <button type="submit" class="btn btn-primary mt-5">{{ $buttonTitle }}</button>
+        @endif
+
+
     </div>
   </div>
 

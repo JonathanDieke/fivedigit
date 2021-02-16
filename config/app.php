@@ -166,6 +166,9 @@ return [
          * Package Service Providers...
          */
 
+        Bmatovu\MtnMomo\MtnMomoServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

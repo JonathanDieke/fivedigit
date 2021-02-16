@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\DocumentController;
-use App\Models\document;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,18 +29,30 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/request_document', function () {
-    return view('request');
-})->name('request');
 
-Route::post('/requested_document', function (Request $request) {
-    dd($request->code);
-})->name('requested');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/request_document',[ManagerController::class, 'getRequest'])->name('request');
+
+    Route::post('/requested_document', [ManagerController::class, 'postRequest'])->name('requested');
+
+    Route::post('/send_request_document/{document}', [ManagerController::class, 'sendRequest'])->name('sendRequest');
+});
+
 
 Route::get('/refresh_document', function () {
     return view('refresh');
 })->name('refresh');
 
-Route::get('/consult_document', [DocumentController::class, 'index'])->name('consult');
+Route::post('/refresh_document', [ManagerController::class, 'postRefreshed'])->name('refreshed');
 
+
+Route::post("/payment", [ManagerController::class, 'getPay'])->name('pay');
+Route::post("/paid", [ManagerController::class, 'postPay'])->name('paid');
+
+
+
+
+Route::get('/consult_document', [DocumentController::class, 'index'])->name('consult');
 Route::post('/consult_document', [DocumentController::class, 'store'])->name('consulted');

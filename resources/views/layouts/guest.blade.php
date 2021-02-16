@@ -11,7 +11,7 @@
 
         @if (config("app.env") ==="local")
             <!-- Bootstrap core CSS -->
-            <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+            <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
         @else
                 <!-- CSS only -->
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -32,56 +32,41 @@
 
         @endif
 
+        @if ($script ?? $script=null)
+          <script src="{{ asset('js/'.($script).'.js') }}" defer></script>
+        @endif
+
+        @push('scripts')
+            <script >
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            </script>
+        @endpush
+
+        <style>
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+            #loading {
+                background-color:transparent;
+                position: fixed;
+                z-index: 10;
+            }
+        </style>
+
     </head>
     <body>
 
         <header>
-            {{-- <div class="collapse bg-dark" id="navbarHeader">
-              <div class="container">
-
-                <div class="row">
-                  <div class="col-sm-8 col-md-7 py-4">
-                    <h4 class="text-white">About</h4>
-                    <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-                  </div>
-                  <div class="col-sm-8 py-4">
-                    <h4 class="text-white">Liens</h4>
-                    <ul class="list-unstyled">
-                        <div class="right">
-                            @auth
-                                <form action="{{ route('logout') }}" method="POST" style="displays: none" id='form_logout'>
-                                    @csrf
-                                </form>
-                              <li><a href="#" class="text-primary" onclick="document.querySelector('#form_logout').submit()">Se Déconnecter </a></li>
-                            @else
-                              <li><a href="{{ route('login') }}" class="text-primary">Se Connecter </a></li>
-                            @endauth
-                        </div>
-
-                        <div class="left">
-                            <li><a href="{{ route('request') }}" class="text-primary">Demander un document</a></li>
-                            <li><a href="{{ route('refresh') }}" class="text-primary">Actualiser un document</a></li>
-                            <li><a href="{{ route('consult') }}" class="text-primary">Consulter un document</a></li>
-                        </div>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div> --}}
-
-            {{-- <div class="navbar navbar-dark bg-secondary shadow-sm">
-              <div class="container d-flex justify-content-between">
-                <a href="{{ route('welcome') }}" class="navbar-brand d-flex align-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                  <img src="{{ asset('img/logo.jpg') }}" alt="Five Digit" style="height: 20px; width:20px">
-                  <x-application-logo style="height: 40px; width:40px" />
-                  <strong> {{ config("app.name") }} </strong>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              </div>
-            </div> --}}
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
               <div class="container">
@@ -92,38 +77,75 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav mr-auto">
+                      @auth
+                          <li class="nav-item">
+                              <a class="nav-link {{ set_active_route('dashboard') }}" href="{{ route('dashboard') }}">Tableau de bord</a>
+                          </li>
+                      @endauth
                     <li class="nav-item">
-                      <a class="nav-link {{ set_active_route('request') }}" aria-current="page" href="{{ route('request') }}">Demander un document</a>
+                      <a class="nav-link {{ set_active_route('request') }} {{ set_active_route('requested') }}" aria-current="page" href="{{ route('request') }}">Demander un document</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link {{ set_active_route('refresh') }}" href="{{ route('refresh') }}">Actualiser un document</a>
+                      <a class="nav-link {{ set_active_route('refresh') }} {{ set_active_route('refreshed') }} {{ set_active_route('pay') }}" href="{{ route('refresh') }}">Actualiser un document</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link {{ set_active_route('consult') }}" href="{{ route('consult') }}">Consulter un document</a>
-                    </li>
+                    {{--  <li class="nav-item">
+                      <a class="nav-link {{ set_active_route('consult') }} {{ set_active_route('consulted') }}" href="{{ route('consult') }}">Consulter un document</a>
+                    </li>  --}}
                   </ul>
-                  <ul class="navbar-nav mr-auto ">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="{{ route('login') }}">Se Connecter</a>
-                    </li>
-                  </ul>
+                    @guest
+                            <a class="nav-link active" href="{{ route('login') }}" style="text-decoration: none; color: #0098C8">Se Connecter</a>
+                    @else
+                        <form action="{{ route('logout') }}" method="post" id="logout">
+                            @csrf
+                            <a role="button" onclick="document.getElementById('logout').submit()">Déconnexion</a>
+                        </form>
+                    @endguest
                 </div>
               </div>
             </nav>
         </header>
 
-            @if (Route::is('login'))
+        <main role="main">
+
+            {{-- <div class="pt-4 container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#">Library</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    </ol>
+                </nav> --}}
+
+            </div>
+
+            @if (Route::is('login') || Route::is('register'))
                 <div class="font-sans text-gray-900 antialiased">
                     {{ $slot }}
                 </div>
             @else
-                <div class="container">
+                <div class="container body">
+
+                    @if (session("success-request"))
+                        <div class="alert alert-success text-center mt-4">
+                            {{ session('success-request') }}
+                        </div>
+                    @endif
+
+                    @if (session("already-request"))
+                        <div class="alert alert-warning text-center mt-4">
+                            {{ session('already-request') }}
+                        </div>
+                    @endif
+
                     @yield('content')
                 </div>
             @endif
 
-            
-        <footer class="text-bold">
+        </main>
+
+
+
+        {{--  <footer class="text-bold">
             <div class="container">
                 @if (!Route::is('login'))
                     <p class="float-right">
@@ -140,7 +162,7 @@
                 </p>
             </div>
 
-        </footer>
+        </footer>  --}}
 
         @if (config("app.env") ==="local")
           <script src="{{ asset('js/jquery.js') }}"></script>
