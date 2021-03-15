@@ -18,6 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->string('code')->unique();
             $table->foreignId('mayor_id')->constrained('mayors');
             $table->foreignId('child_id')->constrained('children');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

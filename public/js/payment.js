@@ -79,12 +79,18 @@ $( () => {
                     setTimeout(() => {
                         let alert = `<div class="success alert alert-success my-4 p-2 text-center" > Paiement effectué. <br/> Votre requête sera prise en compte dans un délai de 48h !</div>`
 
+                        $('.phone').val("")
 
                         $(".preload").fadeOut("slow", () => {
                             $(alert).replaceAll(".success")
                             $(".btn-payment").attr("disabled", false)
+
+                            setTimeout(() => {
+                                window.location.replace("/");
+                            }, 2000)
+
                         })
-                    }, 2500);
+                    }, 3000);
 
                 },
 

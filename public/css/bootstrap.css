@@ -2766,7 +2766,7 @@ fieldset:disabled a.btn {
 
 .btn-light {
   color: #212529;
-  background-color: #f8f9fa;
+  background-color: #53595f;
   border-color: #f8f9fa;
 }
 
@@ -6772,6 +6772,7 @@ button.bg-danger:focus {
 
 .bg-light {
   /* background-color: #f8f9fa !important; */
+    /* background-color: rgba(255, 166, 0, 0.9) !important; */
     background-color: orange !important;
 }
 

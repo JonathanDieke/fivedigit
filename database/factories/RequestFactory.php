@@ -22,7 +22,7 @@ class RequestFactory extends Factory
     public function definition()
     {
         return [
-            'document_id' => $this->faker->numberBetween($min=1, $max=50),
+            'document_id' => $this->faker->numberBetween($min=1, $max=10),
             'claimant_id' => $this->faker->numberBetween($min=1, $max=10),
         ];
     }

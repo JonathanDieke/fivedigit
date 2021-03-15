@@ -4,37 +4,21 @@
 @section('content')
     <div class="mt-4 pt-4">
 
+        <div class="card">
+            <div class="card-body h4">
+              Bienvenue M. {{ Auth::user()->name }}
+            </div>
+          </div>
+
         <div class="row">
 
             <div class="col-md-6 col-lg-4 col-12 py-3">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Document n° : ...</h5>
-                  <p class="card-text">Nom & Prénoms : ....</p>
-                  <p class="card-text">Date d'émission : ...</p>
-                  <a href="#" class="btn btn-primary btn-sm">Télécharger </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-12 py-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Document n° : ...</h5>
-                  <p class="card-text">Nom & Prénoms : ....</p>
-                  <p class="card-text">Date d'émission : ...</p>
-                  <a href="#" class="btn btn-primary btn-sm">Télécharger </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-12 py-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Document n° : ...</h5>
-                  <p class="card-text">Nom & Prénoms : ....</p>
-                  <p class="card-text">Date d'émission : ...</p>
-                  <a href="#" class="btn btn-primary btn-sm">Télécharger </a>
+                  <h5 class="card-title">Document n° : {{ Auth::user()->documents[0]->code }}</h5>
+                  <p class="card-text">Nom & Prénoms : {{ Auth::user()->name }} {{ Auth::user()->lname }}</p>
+                  <p class="card-text">Date d'émission : {{  Auth::user()->created_at }}</p>
+                  <a href="{{ asset("storage/extraitNew.pdf") }}" class="btn btn-outline-success btn-sm" download>Télécharger </a>
                 </div>
               </div>
             </div>

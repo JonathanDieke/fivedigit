@@ -32,6 +32,12 @@
 
         @endif
 
+        @if (config("app.env") ==="local")
+          <script src="{{ asset('js/jquery.js') }}"></script>
+          <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+        @endif
+
         @if ($script ?? $script=null)
           <script src="{{ asset('js/'.($script).'.js') }}" defer></script>
         @endif
@@ -64,7 +70,12 @@
         </style>
 
     </head>
-    <body>
+    <body @if(Route::is("refreshed"))
+                    style="background-image:url({{ asset('img/armoirie2.png') }}) ;
+                                background-repeat:no-repeat;
+                                background-position:50% 100%;
+                                background-size: 40% auto;"
+                @endif;>
 
         <header>
 
@@ -164,10 +175,7 @@
 
         </footer>  --}}
 
-        @if (config("app.env") ==="local")
-          <script src="{{ asset('js/jquery.js') }}"></script>
-          <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-        @endif
+
 
         @if (config("app.env") ==="production")
 

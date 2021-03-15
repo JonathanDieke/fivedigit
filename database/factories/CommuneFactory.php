@@ -22,8 +22,8 @@ class communeFactory extends Factory
     public function definition()
     {
         return [
-            'city_id' => $this->faker->numberBetween($min=1, $max=10),
-            "mayor_id" => $this->faker->numberBetween($min=1, $max=100),
+            'city_id' => $this->faker->numberBetween($min=1, $max=5),
+            "mayor_id" => $this->faker->numberBetween($min=1, $max=25),
             'name' => $this->faker->streetSuffix,
         ];
     }

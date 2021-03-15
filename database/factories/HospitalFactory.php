@@ -22,7 +22,7 @@ class hospitalFactory extends Factory
     public function definition()
     {
         return [
-            'commune_id' => $this->faker->numberBetween($min=1, $max=100),
+            'commune_id' => $this->faker->numberBetween($min=1, $max=25),
             'name' => "Hopital ". $this->faker->firstName,
         ];
     }

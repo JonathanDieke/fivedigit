@@ -1,4 +1,4 @@
-<div class="bg-gray-100">
+<div class="bg-white">
     <div class=" flex flex-col sm:justify-center items-center pt-6 sm:pt-0 ">
         <div class="mt-6">
             {{ $logo }}
@@ -10,5 +10,8 @@
     </div>
 
 </div>
+{{--  
+background-color: #3bb78f;
+background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);  --}}
 
 

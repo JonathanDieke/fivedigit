@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-  <div class="card ml-auto mr-auto my-5 shadow-xs bg-light " style="width:auto;">
+  <div class="card ml-auto mr-auto my-5 shadow-xs " style="width:auto;  background-color : rgba(255, 166, 0, 0.7)" >
     <div class="card-body">
         <h4 class="card-title"> Extrait n°{{ $document->code }}</h4>
 
@@ -52,17 +52,17 @@
                 <form action="{{ route($route, $document) }}" method="POST">
                     @csrf
                     <input type="hidden" name="document_id" value="{{ $document->id }}">
-                    <button type="submit" class="btn btn-primary mt-5">{{ $buttonTitle }}</button>
+                    <button type="submit" class="btn btn-outline-success mt-5">{{ $buttonTitle }}</button>
                 </form>
             @elseif($route === 'pay')
                 <form action="{{ route($route) }}" method="post">
                     @csrf
                     <input type="hidden" name="code" value="{{ $document->code }}">
-                    <button type="submit" class="btn btn-primary mt-5">{{ $buttonTitle }}</button>
+                    <button type="submit" class="btn btn-outline-success mt-5">{{ $buttonTitle }}</button>
                 </form>
             @endif
         @else
-            <button type="submit" class="btn btn-primary mt-5">{{ $buttonTitle }}</button>
+            <button type="submit" class="btn btn-outline-success mt-5">{{ $buttonTitle }}</button>
         @endif
 
 

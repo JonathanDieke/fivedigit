@@ -22,9 +22,10 @@ class documentFactory extends Factory
     public function definition()
     {
         return [
-            'mayor_id' => $this->faker->numberBetween($min = 1, $max = 100),
-            'child_id' => $this->faker->numberBetween($min=1, $max=20),
-            'code' => $this->faker-> regexify('[A-Z0-9]+[A-Z0-9.-]+\.[A-Z]{2,4}'),
+            'mayor_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'child_id' => $this->faker->numberBetween($min=1, $max=5),
+            'user_id' => 1,
+            'code' => $this->faker->regexify('[0-9]+[0-9]{2,6}'),
         ];
     }
 }

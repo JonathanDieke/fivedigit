@@ -22,10 +22,10 @@ class childFactory extends Factory
     public function definition()
     {
         return [
-            'hospital_id' => $this->faker->numberBetween($min=1, $max=100),
-            'father_id' => $this->faker->numberBetween($min=1, $max=50),
-            'mother_id' => $this->faker->numberBetween($min=1, $max=50),
-            'document_id' => $this->faker->numberBetween($min=1, $max=20),
+            'hospital_id' => $this->faker->numberBetween($min=1, $max=25),
+            'father_id' => $this->faker->numberBetween($min=1, $max=5),
+            'mother_id' => $this->faker->numberBetween($min=1, $max=5),
+            'document_id' => $this->faker->numberBetween($min=1, $max=10),
             'name' => $this->faker->firstName(),
             'lname' => $this->faker->lastName,
             'birthday' => $this->faker-> dateTimeBetween($startDate = '-1 year', $endDate = 'now', $timezone = null),

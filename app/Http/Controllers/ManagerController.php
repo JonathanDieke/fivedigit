@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\document;
 use App\Models\ask;
+use App\Models\document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ManagerController extends Controller
@@ -48,22 +49,28 @@ class ManagerController extends Controller
         // INSERER LA DEAMNDE DANS LA TABLE DES DEMANDES
 
         $document  = $request->document_id;
+
         $claimant = Auth::id();
 
         $askAlreadyExist = ask::where('document_id',$document)
                                                 ->get();
 
-        if($askAlreadyExist){
+        if(!$askAlreadyExist->isEmpty()){
             return redirect()->route('request')->with('already-request', "Cette demande est actuellemnt en traitement.");
         }
-        dd($askAlreadyExist);
 
         $ask = ask::create([
             'document_id' => $document,
             'claimant_id' => $claimant
         ]);
 
-        return redirect()->route('request')->with('success-request', "Demande effectuée. Elle sera traité dans un délai de 48h.");
+        $code = document::find($document)->code;
+
+        $id = DB::table('extrait')->insertGetId(
+            ['Etat' => 0, 'numExtrait' => $code ]
+        );
+
+        return redirect()->route('request')->with('success-request', "Demande effectuée. Elle sera traitée dans un délai de 48h.");
         // return back()->with('success', "Demande envoyée avec succès");
 
     }
@@ -102,7 +109,7 @@ class ManagerController extends Controller
         $code = $request->code;
         $phone = $request->phone;
 
-        $doc = document::where('code', $code)->get()[0]; 
+        $doc = document::where('code', $code)->get()[0];
 
         $doc->updated_at = now() ; //maj updated_at
         $doc->save() ; //persistence des modifications

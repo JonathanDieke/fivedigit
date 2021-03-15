@@ -6,7 +6,7 @@
 
     </div>
 
-    <div class="my-5 shadow-xs bg-light rounded p-4">
+    <div class="my-5 shadow-xs rounded p-4" style=" background-color : rgba(255, 166, 0, 0.7)">
         <h1 class=" ">Méthodes de paiement</h1>
 
         <hr>
@@ -71,7 +71,7 @@
 
 
             <input type="hidden" class="code" name="code" value="{{ $code }}">
-            <button type="submit" class="btn btn-success ml-3 my-2 btn-payment">Continuer</button>
+            <button type="submit" class="btn btn-outline-success ml-3 my-2 btn-payment">Continuer</button>
 
         </form>
 
